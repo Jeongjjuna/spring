@@ -1,6 +1,5 @@
 package com.jeongjjuna.learnjpaandhibernate.course.jdbc;
 
-import com.jeongjjuna.learnjpaandhibernate.course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

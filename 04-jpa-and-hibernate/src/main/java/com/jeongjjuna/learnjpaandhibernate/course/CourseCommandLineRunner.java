@@ -1,6 +1,7 @@
 package com.jeongjjuna.learnjpaandhibernate.course;
 
-import com.jeongjjuna.learnjpaandhibernate.course.jdbc.CourseJdbcRepository;
+import com.jeongjjuna.learnjpaandhibernate.course.jpa.Course;
+import com.jeongjjuna.learnjpaandhibernate.course.jpa.CourseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -8,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseCommandLineRunner implements CommandLineRunner {
 
+//    @Autowired
+//    private CourseJdbcRepository repository;
+
     @Autowired
-    private CourseJdbcRepository repository;
+    private CourseJpaRepository repository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -21,7 +25,5 @@ public class CourseCommandLineRunner implements CommandLineRunner {
 
         System.out.println(repository.findById(2l));
         System.out.println(repository.findById(3l));
-
-
     }
 }
