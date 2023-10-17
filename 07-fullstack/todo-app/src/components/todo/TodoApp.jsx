@@ -20,7 +20,6 @@ function AuthenticatedRoute({children}) {
     return <Navigate to="/" />
 }
 
-
 export default function TodoApp() {
     return (
         <div className="TodoApp">
@@ -43,16 +42,15 @@ export default function TodoApp() {
                             </AuthenticatedRoute>
                         } />
 
+                        <Route path='/todo/:id' element={
+                            <AuthenticatedRoute>
+                                <TodoComponent /> 
+                            </AuthenticatedRoute>
+                        } />
 
                         <Route path='/logout' element={
                             <AuthenticatedRoute>
                                 <LogoutComponent /> 
-                            </AuthenticatedRoute>
-                        } />
-
-                        <Route path='/todo/:id' element={
-                            <AuthenticatedRoute>
-                                <TodoComponent /> 
                             </AuthenticatedRoute>
                         } />
 

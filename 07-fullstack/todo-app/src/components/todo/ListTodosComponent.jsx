@@ -7,24 +7,19 @@ export default function ListTodosComponent() {
 
     const authContext = useAuth()
 
-    const navigate = useNavigate()
-
     const username = authContext.username
 
+    const navigate = useNavigate()
+    
     const [todos,setTodos] = useState([])
 
     const [message,setMessage] = useState(null)
     
-    useEffect ( () => {
-        refreshTodos()
-    }, [])
+    useEffect ( () => refreshTodos(), [])
 
-
-    function updateTodo(id) {
-        navigate(`/todo/${id}`)
-    }
 
     function refreshTodos() {
+        
         retrieveAllTodosForUsernameApi(username)
         .then(response => {
             setTodos(response.data)
@@ -34,25 +29,31 @@ export default function ListTodosComponent() {
         .catch(error => console.log(error))
     }
 
+
+    function updateTodo(id) {
+        console.log('clicked ' + id)
+        navigate(`/todo/${id}`)
+    }
+
+
     function deleteTodo(id) {
         console.log('clicked ' + id)
         deleteTodoApi(username, id)
         .then(
-            
-            // 삭제 응답을 받았으면 무엇을 해야할 까?
-            //1: 삭제 성공 메세지를 출력한다.
-            //2: 삭제 후 새로운 todo리스트를 출력해줘야한다. -> todo리스트를 api로 호출한다.(바뀐 내용이 state에 적용, 화면에 출력)
+
             () => {
-                setMessage(`Delete of todo with id = ${id} successful`)
+                setMessage(`Delete of todos with id = ${id} successful`)
                 refreshTodos()
             }
         )
         .catch(error => console.log(error))
     }
 
+
     function addNewTodo() {
         navigate(`/todo/-1`)
     }
+
 
     return (
         <div className="container">
@@ -80,9 +81,9 @@ export default function ListTodosComponent() {
                                     <td>{todo.done.toString()}</td>
                                     <td>{todo.targetDate.toString()}</td>
                                     <td> <button className="btn btn-warning" 
-                                            onClick={() => deleteTodo(todo.id)}>Delete</button> </td>
+                                                    onClick={() => deleteTodo(todo.id)}>Delete</button> </td>
                                     <td> <button className="btn btn-success" 
-                                            onClick={() => updateTodo(todo.id)}>Update</button> </td>
+                                                    onClick={() => updateTodo(todo.id)}>Update</button> </td>
                                 </tr>
                             )
                         )
@@ -94,4 +95,5 @@ export default function ListTodosComponent() {
             <div className="btn btn-success m-5" onClick={addNewTodo}>Add New Todo</div>
         </div>
     )
+
 }
